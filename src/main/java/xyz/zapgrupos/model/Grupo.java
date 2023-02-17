@@ -1,23 +1,22 @@
 package xyz.zapgrupos.model;
 
 
-import org.bson.types.ObjectId;
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.regex.Pattern;
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name = "URLs")
 @DiscriminatorColumn(name = "type")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 
-//@NamedNativeQuery(
-//        name = "GruposQuery",
-//        query = "db.URLs.find({},{ '_id': 1, 'titulo': 1})",
-//        resultClass = Grupo.class)
-//
+@NamedNativeQuery(
+        name = "GruposQuery",
+        query = "db.URLs.find({})",
+        resultClass = Grupo.class)
+
 //@ResultSetMapping(
 //        name="GruposResult",
 //        classes={
@@ -58,49 +57,7 @@ public abstract class Grupo implements Serializable {
     public Grupo() {
 
     }
-    /*
-    public Grupo(
-        String id,
-        String titulo,
-        String url,
-        Boolean status,
-        String tipo,
-        String type,
-        String descricao,
-        Boolean ativo,
-        String categoria,
-        String linkOrigem,
-        String pais,
-        Integer vizita,
-        String siteMae,
-        Date created_at,
-        Date updated_at,
-        Date deleted_at,
-        String imgGroupUrl,
-        Integer qtd_member,
-        Boolean sensivel
-    ) {
-        this.id = id ;
-        this.titulo = titulo;
-        this.url =  url;
-        this.status =  status;
-        this.tipo = tipo;
-        this.type =  type;
-        this.descricao = descricao;
-        this.ativo =  ativo;
-        this.categoria =  categoria;
-        this.linkOrigem =  linkOrigem;
-        this.pais = pais;
-        this.vizita =  vizita;
-        this.siteMae = siteMae;
-        this.created_at =  created_at;
-        this.updated_at = updated_at;
-        this.deleted_at =  deleted_at;
-        this.imgGroupUrl =  imgGroupUrl;
-        this.qtd_member = qtd_member;
-        this.sensivel = sensivel;
-    }
-    */
+
     public Grupo(String url) {
         this.url = url;
         this.categoria = "Outros";
