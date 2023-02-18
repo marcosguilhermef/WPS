@@ -14,6 +14,8 @@ public class GruposDAO implements ServiceDAO<Grupo, String>{
     private static EntityManagerFactory factory = null;
     private static EntityManager entityManager = null;
 
+    private static GruposDAO instance = null;
+
     public GruposDAO(){
         if(this.verifyEntityManager()){
             this.createEntityManager();
@@ -28,38 +30,43 @@ public class GruposDAO implements ServiceDAO<Grupo, String>{
             factory = Persistence.createEntityManagerFactory("default");
             entityManager = factory.createEntityManager();
         } catch (Exception e) {
+            System.out.println("-------------------------------------[ERRO]--------------------------------------------");
             e.printStackTrace();
         }
     }
 
     private EntityManager getEntityManager(){
-
+        System.out.println("[TESTE]"+this.verifyEntityManager());
         if(this.verifyEntityManager()){
             return entityManager;
         }
 
         this.createEntityManager();
+        System.out.println("[TESTE]"+this.verifyEntityManager());
         return entityManager;
+    }
+
+    private void beging(){
+        if(!getEntityManager().getTransaction().isActive()){
+            getEntityManager().getTransaction().begin();
+        }
     }
 
     public Grupo insert(Grupo grupo){
         try {
-            getEntityManager().getTransaction().begin();
+            this.beging();
             getEntityManager().persist(grupo);
             getEntityManager().getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
-        } finally {
-            getEntityManager().close();
         }
         return grupo;
     }
     public Grupo update(Grupo grupo){
         Grupo ng = this.getById(grupo.getId());
-        getEntityManager().getTransaction().begin();
-
+        this.beging();
         Field[] fields = Arrays.stream(grupo.getClass().getFields()).filter(
                 e -> (e.getModifiers() == Modifier.PUBLIC)
         ).toArray(Field[]::new);
@@ -92,13 +99,11 @@ public class GruposDAO implements ServiceDAO<Grupo, String>{
     public List<Grupo> getAll() {
         List<Grupo> list = null;
         try {
-            getEntityManager().getTransaction().begin();
-            list =  getEntityManager().createNamedQuery("GruposQuery").getResultList();
-            System.out.println(list);
+            this.beging();
+            System.out.println(getEntityManager());
+            list =  getEntityManager().createNamedQuery("GruposQuery").setMaxResults(10000).getResultList();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            getEntityManager().close();
         }
         return list;
     }
@@ -109,6 +114,7 @@ public class GruposDAO implements ServiceDAO<Grupo, String>{
      * @return o objeto Pessoa.
      */
     public Grupo getById(String id) {
+        this.beging();
         Grupo grupo = getEntityManager().find(Grupo.class, id);
         System.out.println("rumrmu: " + grupo.getId());
         try {
@@ -116,9 +122,10 @@ public class GruposDAO implements ServiceDAO<Grupo, String>{
                 System.out.println("NÃO ENCONTRADO");
                 return grupo;
             }
-        } finally {
-            getEntityManager().close();
+        } catch (Exception e){
+            e.printStackTrace();
         }
         return grupo;
     }
+
 }

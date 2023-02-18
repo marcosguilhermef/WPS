@@ -11,7 +11,7 @@ public class RequestProcess<T extends Image> implements ProcessContract<T>{
 
     Image image;
     public RequestProcess(Image image){
-        this.next = new ImageProcess(image.getNameIMage());
+        this.next = new ImageProcess(image);
         this.image = image;
     }
     @Override

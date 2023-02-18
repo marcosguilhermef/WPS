@@ -3,7 +3,9 @@ package xyz.zapgrupos.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Pattern;
 import org.hibernate.annotations.Type;
 
@@ -14,18 +16,8 @@ import org.hibernate.annotations.Type;
 
 @NamedNativeQuery(
         name = "GruposQuery",
-        query = "db.URLs.find({})",
+        query = "db.URLs.find({ ativo: true })",
         resultClass = Grupo.class)
-
-//@ResultSetMapping(
-//        name="GruposResult",
-//        classes={
-//                @ConstructorResult(
-//                        columns={
-//                                @ColumnResult(name="id", type=String.class),
-//                                @ColumnResult(name="titulo", type=String.class)
-//                        },
-//                        targetClass= Grupo.class)})
 
 public abstract class Grupo implements Serializable {
     @Id
@@ -36,7 +28,8 @@ public abstract class Grupo implements Serializable {
     public String titulo;
     @Column(unique=true)
     public String url;
-    //List<String> imgUrl;
+    @ElementCollection
+    public List<String> img;
     public Integer qtd_member;
     public Boolean status;
     public String tipo;
@@ -63,6 +56,50 @@ public abstract class Grupo implements Serializable {
         this.categoria = "Outros";
         this.ativo = true;
         this.sensivel = false;
+    }
+
+    public Grupo(
+        String id,
+        String titulo,
+        String url,
+        List<String> img,
+        Integer qtd_member,
+        Boolean status,
+        String tipo,
+        String type,
+        String descricao,
+        Boolean ativo,
+        String categoria,
+        String linkOrigem,
+        String pais,
+        Integer vizita,
+        String siteMae,
+        Date created_at,
+        Date updated_at,
+        Date deleted_at,
+        String imgGroupUrl,
+        boolean sensivel
+    ) {
+        this.id = id;
+        this.titulo = titulo;
+        this.url = url;
+        this.img = img;
+        this.qtd_member = qtd_member;
+        this.status = status;
+        this.tipo = tipo;
+        this.type = type;
+        this.descricao = descricao;
+        this.ativo = ativo;
+        this.categoria = categoria;
+        this.linkOrigem = linkOrigem;
+        this.pais = pais;
+        this.vizita = vizita;
+        this.siteMae = siteMae;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+        this.deleted_at = deleted_at;
+        this.imgGroupUrl = imgGroupUrl;
+        this.sensivel = sensivel;
     }
 
     public void setId(String value){
@@ -238,6 +275,69 @@ public abstract class Grupo implements Serializable {
 
     public void setImgGroupUrl(String imgGroupUrl) {
         this.imgGroupUrl = imgGroupUrl;
+    }
+
+    public List<String> getImg() {
+        return img;
+    }
+
+    public void setImg(List<String> img) {
+        this.img = img;
+    }
+
+    public void addImg(String img) {
+        if(this.img == null){
+            this.img = new ArrayList<>();
+            this.img.add(img);
+        }else{
+            this.img.add(img);
+        }
+    }
+
+    public String toString(){
+        return String.format("%s { " +
+                        "id: %s,"+
+                        "titulo: %s,"+
+                        "url: %s,"+
+                        "qtd_member: %s,"+
+                        "status: %s,"+
+                        "tipo: %s,"+
+                        "type: %s,"+
+                        "descricao: %s,"+
+                        "ativo: %s,"+
+                        "categoria: %s,"+
+                        "linkOrigem: %s,"+
+                        "pais: %s,"+
+                        "vizita: %s,"+
+                        "siteMae: %s,"+
+                        "created_at: %s,"+
+                        "updated_at: %s,"+
+                        "deleted_at: %s,"+
+                        "imgGroupUrl: %s,"+
+                        "img: %s,"+
+                        "sensivel: %s,}",
+                        this.getClass().getName(),
+                        id,
+                        titulo,
+                        url,
+                        qtd_member,
+                        status,
+                        tipo,
+                        type,
+                        descricao,
+                        ativo,
+                        categoria,
+                        linkOrigem,
+                        pais,
+                        vizita,
+                        siteMae,
+                        created_at,
+                        updated_at,
+                        deleted_at,
+                        imgGroupUrl,
+                        img.toString(),
+                        sensivel
+                );
     }
 
     abstract public Pattern getTitleRegex();

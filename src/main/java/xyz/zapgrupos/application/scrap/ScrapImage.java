@@ -11,7 +11,8 @@ public class ScrapImage implements ScrapContract{
         String[] urls = grupo.getImgUrlRegex().matcher(Commander.getBody().toString().toString()).results().map((e) -> e.group(1)).toArray(String[]::new);
         if(urls.length != 0){
             grupo.setImgGroupUrl(urls[0].replaceAll("&amp;","&"));
-            downloadImage(urls[0].replaceAll("&amp;","&"), "test_image_ff");
+            String imgProcessed = downloadImage(urls[0].replaceAll("&amp;","&"), grupo.getId());
+            grupo.addImg(imgProcessed);
             return urls[0].replaceAll("&amp;","&");
         }
         return null;
@@ -20,6 +21,6 @@ public class ScrapImage implements ScrapContract{
     private String downloadImage(String url, String name){
         System.out.println("Download image");
         Invokator imbProcess = new Invokator(url, name);
-        return imbProcess.getImage().getUrl();
+        return imbProcess.getImage().getResouseUrl();
     }
 }

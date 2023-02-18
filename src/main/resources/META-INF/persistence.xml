@@ -17,6 +17,8 @@
             <property name="hibernate.ogm.datastore.port" value="27017" />
             <property name="hibernate.ogm.datastore.create_database" value="true" />
             <property name="hibernate.ogm.datastore.provider" value="mongodb" />
+            <property name="hibernate.ogm.mongodb.connection_timeout" value="180000" />
+            <property name="hibernate.enable_lazy_load_no_trans" value="true" />
         </properties>
 
     </persistence-unit>
