@@ -5,8 +5,7 @@ import org.junit.Test;
 public class VerifyGroupTest {
     @Test
     public void testVerifyGroup(){
-        VerifyGroup f = new VerifyGroup();
-        f.setParameters("6142752e1dbe863be63f09f8");
-        f.run();
+       Commander t = new Commander();
+       t.run(new VerifyGroup(), "6142752e1dbe863be63f09f8");
     }
 }
