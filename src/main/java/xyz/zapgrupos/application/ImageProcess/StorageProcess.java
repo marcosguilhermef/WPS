@@ -9,6 +9,8 @@ import java.util.Properties;
 public class StorageProcess<T extends ByteArrayOutputStream> implements ProcessContract<T>{
     public final String URL_FOLDER ;// = "/home/zispo/imagens/%s";
     public final String IMAGE_PATH;// = "/home/zispo/imagens/%s/%s.jpg";
+    public final String IMAGE_URL;// = "/home/zispo/imagens/%s/%s.jpg";
+
     public String nameImage;
     public Image image;
 
@@ -18,6 +20,7 @@ public class StorageProcess<T extends ByteArrayOutputStream> implements ProcessC
         Properties p = readPropertiesFile("directories.properties");
         URL_FOLDER = p.getProperty("URL_FOLDER");
         IMAGE_PATH = p.getProperty("IMAGE_PATH");
+        IMAGE_URL  = p.getProperty("IMAGE_URL");
 
     }
 
@@ -48,8 +51,8 @@ public class StorageProcess<T extends ByteArrayOutputStream> implements ProcessC
             theDir.mkdirs();
             InputStream is = new ByteArrayInputStream(e.toByteArray());
             Files.copy(is, Paths.get(String.format(IMAGE_PATH, this.nameImage, this.nameImage)), StandardCopyOption.REPLACE_EXISTING);
-            this.image.setResouseUrl(String.format(IMAGE_PATH, this.nameImage, this.nameImage));
-            System.out.println(String.format(IMAGE_PATH, this.nameImage, this.nameImage));
+            this.image.setResouseUrl(String.format(IMAGE_URL, this.nameImage, this.nameImage));
+            System.out.println(String.format(IMAGE_URL, this.nameImage, this.nameImage));
             return true;
         }
         catch (IOException err){
