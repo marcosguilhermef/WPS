@@ -108,6 +108,18 @@ public class GruposDAO implements ServiceDAO<Grupo, String>{
         return list;
     }
 
+    public int getCount() {
+        int count = 0;
+        try {
+            this.beging();
+            System.out.println(getEntityManager());
+            count = getEntityManager().createNamedQuery("GruposQuery").getMaxResults();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
     /**
      * Consulta o pessoa pelo ID.
      * @param id
