@@ -2,6 +2,7 @@ package xyz.zapgrupos.application.tool;
 
 import xyz.zapgrupos.application.scrap.Invokator;
 import xyz.zapgrupos.model.Grupo;
+import xyz.zapgrupos.model.Telegram;
 import xyz.zapgrupos.model.WhatsApp;
 import xyz.zapgrupos.services.GruposDAO;
 import xyz.zapgrupos.services.ServiceDAO;
@@ -13,9 +14,16 @@ public class VerifyGroup implements ToolComander<String>{
     @Override
     public void run() {
         Invokator scrap = new Invokator();
-        scrap.run((WhatsApp) grupo);
-        System.out.println("[finish]: "+grupo.toString());
-        s.update(grupo);
+        if(grupo.getType() == "WhatsApp"){
+            scrap.run((WhatsApp) grupo);
+            System.out.println("[finish]: "+grupo.toString());
+            s.update(grupo);
+        }else{
+            scrap.run((Telegram) grupo);
+            System.out.println("[finish]: "+grupo.toString());
+            s.update(grupo);
+        }
+
     }
     @Override
     public void setParameters(String a) {
