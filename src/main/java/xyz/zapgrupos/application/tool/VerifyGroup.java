@@ -14,7 +14,8 @@ public class VerifyGroup implements ToolComander<String>{
     @Override
     public void run() {
         Invokator scrap = new Invokator();
-        if(grupo.getType() == "WhatsApp"){
+
+        if(grupo.getType().equals("WhatsApp")){
             scrap.run((WhatsApp) grupo);
             System.out.println("[finish]: "+grupo.toString());
             s.update(grupo);
