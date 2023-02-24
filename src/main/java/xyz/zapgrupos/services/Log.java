@@ -1,4 +1,4 @@
-package xyz.zapgrupos.model;
+package xyz.zapgrupos.services;
 
 class Log {
 

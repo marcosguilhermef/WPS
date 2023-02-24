@@ -2,6 +2,7 @@ package xyz.zapgrupos.application.scrap;
 
 import xyz.zapgrupos.model.Telegram;
 import xyz.zapgrupos.model.WhatsApp;
+import xyz.zapgrupos.services.Invoker;
 
 public class Invokator {
     public void run(WhatsApp grupo){
@@ -22,4 +23,5 @@ public class Invokator {
                 new VerifyIfActive<Telegram>()
         );
     }
+
 }
