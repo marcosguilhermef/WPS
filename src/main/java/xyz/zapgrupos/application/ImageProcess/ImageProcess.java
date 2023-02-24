@@ -10,9 +10,9 @@ import java.io.ByteArrayOutputStream;
 public class ImageProcess<T extends InputStream> implements ProcessContract<T>{
     ProcessContract next;
     String nameImage;
-    ImageProcess(String nameImage){
-        this.nameImage = nameImage;
-        this.next = new StorageProcess(nameImage);
+    ImageProcess(Image image){
+        this.nameImage = image.getNameIMage();
+        this.next = new StorageProcess(image);
     }
     @Override
     public boolean handler(T e){

@@ -10,7 +10,6 @@ public class NewGroup implements ToolComander<Grupo>{
 
     @Override
     public void setParameters(Grupo a) {
-
     }
 
 }

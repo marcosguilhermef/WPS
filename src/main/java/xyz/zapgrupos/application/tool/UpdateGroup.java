@@ -1,13 +1,11 @@
 package xyz.zapgrupos.application.tool;
 
-import org.bson.types.ObjectId;
-
-public class UpdateGroup implements ToolComander<ObjectId>{
+public class UpdateGroup implements ToolComander<String>{
     @Override
     public void run() {
 
     }
 
     @Override
-    public void setParameters(ObjectId a){}
+    public void setParameters(String a){}
 }

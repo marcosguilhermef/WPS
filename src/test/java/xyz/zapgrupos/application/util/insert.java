@@ -2,12 +2,14 @@ package xyz.zapgrupos.application.util;
 
 import org.junit.Test;
 import xyz.zapgrupos.model.Grupo;
+import xyz.zapgrupos.model.WhatsApp;
 import xyz.zapgrupos.services.GruposDAO;
 import xyz.zapgrupos.model.Telegram;
 import java.beans.IntrospectionException;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 
 public class insert {
@@ -26,7 +28,7 @@ public class insert {
     }
     @Test
     public void addGruou() {
-        Telegram pessoa = new Telegram("https://"+random());
+        WhatsApp pessoa = new WhatsApp("https://"+random());
         pessoa.setTitulo("[sulista]");
         pessoa.setDescricao("[xandinho!]");
         pessoa.setAtivo(false);
@@ -53,6 +55,13 @@ public class insert {
         } catch (Exception e) {
             System.out.println("here: " + e.getMessage());
         }
+    }
+
+    @Test
+    public void findId(){
+        GruposDAO dao = new GruposDAO();
+        Grupo f = dao.getById("6142752f1dbe863be63f09fd");
+        System.out.println(f.toString());
     }
 
     @Test
