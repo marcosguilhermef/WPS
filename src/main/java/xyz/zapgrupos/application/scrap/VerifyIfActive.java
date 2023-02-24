@@ -18,7 +18,7 @@ public class VerifyIfActive<T extends Grupo>  implements ScrapContract<T,Boolean
     }
 
     private boolean verificar(Telegram grupo){
-        if( (grupo.getTitulo().isEmpty()) | (grupo.getTitulo().isBlank()) | !(grupo.getTitulo() == null)){
+        if( !grupo.getTitulo().isEmpty() ){
             grupo.setAtivo(true);
             System.out.println(
                     String.format("Teste title [%s] [%s] [%s]",
