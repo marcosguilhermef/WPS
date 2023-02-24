@@ -17,7 +17,6 @@ public class VerifyGroup implements ToolComander<String>{
         System.out.println("[finish]: "+grupo.toString());
         s.update(grupo);
     }
-
     @Override
     public void setParameters(String a) {
         grupo = s.getById(a.toString());
