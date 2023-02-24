@@ -5,6 +5,10 @@ import org.jsoup.nodes.Element;
 import xyz.zapgrupos.application.ImageProcess.Image;
 import xyz.zapgrupos.application.ImageProcess.Invokator;
 import xyz.zapgrupos.model.Grupo;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class ScrapImage implements ScrapContract{
     @Override
     public String scrap(Grupo grupo) {
@@ -12,7 +16,9 @@ public class ScrapImage implements ScrapContract{
         if(urls.length != 0){
             grupo.setImgGroupUrl(urls[0].replaceAll("&amp;","&"));
             String imgProcessed = downloadImage(urls[0].replaceAll("&amp;","&"), grupo.getId());
-            grupo.addImg(imgProcessed);
+            List<String> url = new ArrayList<>();
+            url.add(imgProcessed);
+            grupo.setImg(url);
             return urls[0].replaceAll("&amp;","&");
         }
         return null;
