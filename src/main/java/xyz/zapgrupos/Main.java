@@ -9,9 +9,14 @@ public class Main {
         System.out.println("a: UpdateAll");
         System.out.println("b: verifyGroup?");
         System.out.println("c: sensible");
+        String commander;
+        if(args != null){
+            commander = args[0];
+        }else{
+            Scanner s = new Scanner(System.in);
+            commander = s.next();
+        }
 
-        Scanner s = new Scanner(System.in);
-        String commander = s.next();
 
         switch (commander){
             case "a":
