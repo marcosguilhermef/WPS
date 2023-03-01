@@ -14,6 +14,7 @@ public class GruposDAO implements ServiceDAO<Grupo, String>{
     private static EntityManagerFactory factory = null;
     private static EntityManager entityManager = null;
 
+    public static int i = 0;
     private static GruposDAO instance = null;
 
     public GruposDAO(){
@@ -101,7 +102,7 @@ public class GruposDAO implements ServiceDAO<Grupo, String>{
         try {
             this.beging();
             System.out.println(getEntityManager());
-            list =  getEntityManager().createNamedQuery("GruposQuery").setMaxResults(10000).getResultList();
+            list =  getEntityManager().createNamedQuery("GruposQuery").getResultList();
         } catch (Exception e) {
             e.printStackTrace();
         }

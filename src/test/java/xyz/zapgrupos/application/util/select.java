@@ -13,9 +13,11 @@ public class select {
         GruposDAO dao = new GruposDAO();
         try {
             List<Grupo> g = dao.getAll();
+            int i = 0;
             for(Grupo a : g){
+                i++;
                 System.out.println(
-                        String.format("[_ID]: %s [URL]: %s", a.getId(), a.getUrl())
+                        String.format("%s ) [_ID]: %s [URL]: %s ", i,a.getId(), a.getUrl())
                 );
             }
         } catch (Exception e) {
