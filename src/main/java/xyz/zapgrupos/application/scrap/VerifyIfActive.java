@@ -36,7 +36,7 @@ public class VerifyIfActive<T extends Grupo>  implements ScrapContract<T,Boolean
     }
 
     private boolean verificar(WhatsApp grupo){
-        if(!grupo.getTitulo().isEmpty()){
+        if(grupo.getTitulo() != null){
             grupo.setAtivo(true);
             System.out.println(String.format("O grupos %s para whatsapp está ativo", grupo.getTitulo()));
             return true;
