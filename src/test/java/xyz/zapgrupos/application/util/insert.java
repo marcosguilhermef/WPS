@@ -1,6 +1,8 @@
 package xyz.zapgrupos.application.util;
 
 import org.junit.Test;
+import xyz.zapgrupos.application.tool.Commander;
+import xyz.zapgrupos.application.tool.VerifyGroup;
 import xyz.zapgrupos.model.Grupo;
 import xyz.zapgrupos.model.WhatsApp;
 import xyz.zapgrupos.services.GruposDAO;
@@ -28,17 +30,15 @@ public class insert {
     }
     @Test
     public void addGruou() {
-        WhatsApp pessoa = new WhatsApp("https://"+random());
-        pessoa.setTitulo("[sulista]");
-        pessoa.setDescricao("[xandinho!]");
-        pessoa.setAtivo(false);
+        WhatsApp pessoa = new WhatsApp("https://chat.whatsapp.com/EVtrpD5MwtJGOGLfcwG22Y");
         GruposDAO dao = new GruposDAO();
-        try {
-            Grupo g = dao.insert(pessoa);
-            System.out.println(g.getId());
-        } catch (Exception e) {
-            System.out.println("here: " + e.getMessage());
-        }
+        Grupo g = dao.insert(pessoa);
+        System.out.println("Adicionado: "+g.getId());
+        Commander t = new Commander();
+        t.run(new VerifyGroup(), g.getId());
+        System.out.println("Verificado: "+g.getId());
+
+
     }
 
     @Test

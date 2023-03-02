@@ -66,33 +66,11 @@ public class GruposDAO implements ServiceDAO<Grupo, String>{
         return grupo;
     }
     public Grupo update(Grupo grupo){
-        Grupo ng = this.getById(grupo.getId());
         this.beging();
-        Field[] fields = Arrays.stream(grupo.getClass().getFields()).filter(
-                e -> (e.getModifiers() == Modifier.PUBLIC)
-        ).toArray(Field[]::new);
-
-        for (Field prop: fields) {
-            String field = prop.getName();
-            new Log("--------------------------------------------------------------------------------------------------------------------------------");
-            try{
-                var oldValue = ng.getClass().getField(field).get(ng);
-                var newValue = grupo.getClass().getField(field).get(grupo);
-                if((oldValue == newValue) | newValue == null) {
-                    new Log("O valor do '%s' são iguais em ng:%s e grupo: %s", field, oldValue,  newValue);
-                } else {
-                    new Log("O valor do '%s' são diferentes em ng:%s e grupo: %s", field,  oldValue,  newValue);
-                    ng.getClass().getField(prop.getName()).set(ng,newValue);
-                    new Log("[MODIFICADO] O valor do %s são diferentes em grupo:%s e ng: %s", field,  newValue,  oldValue);
-                }
-            }catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException e){
-                e.printStackTrace();
-            }
-        }
-        getEntityManager().merge(ng);
+        getEntityManager().merge(grupo);
         getEntityManager().flush();
         getEntityManager().getTransaction().commit();
-        return ng;
+        return grupo;
     }
 
 
@@ -139,6 +117,18 @@ public class GruposDAO implements ServiceDAO<Grupo, String>{
             e.printStackTrace();
         }
         return grupo;
+    }
+
+    public void addGruop(Grupo grupo) {
+        this.beging();
+        getEntityManager().persist(grupo);
+        getEntityManager().getTransaction().commit();
+        try{
+            System.out.println("Grupo salvo com sucesso: "+ grupo.getId());
+        }catch(Exception e){
+            System.out.println("Grupo salvo não adicionado");
+            e.printStackTrace();
+        }
     }
 
 }
