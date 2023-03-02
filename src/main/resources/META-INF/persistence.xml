@@ -10,6 +10,7 @@
         <class>xyz.zapgrupos.model.Telegram</class>
         <class>xyz.zapgrupos.model.WhatsApp</class>
         <class>xyz.zapgrupos.model.Categorias</class>
+        <class>xyz.zapgrupos.model.Image</class>
 
         <properties>
             <property name="hibernate.ogm.datastore.database" value="GRUPOS" />

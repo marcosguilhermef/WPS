@@ -44,7 +44,8 @@ public abstract class Grupo implements Serializable {
     public Date created_at;
     public Date updated_at;
     public Date deleted_at;
-    public String imgGroupUrl;
+    @ElementCollection
+    public List<Image> imgGroupUrl;
     public boolean sensivel;
 
     public Grupo() {
@@ -77,7 +78,7 @@ public abstract class Grupo implements Serializable {
         Date created_at,
         Date updated_at,
         Date deleted_at,
-        String imgGroupUrl,
+        List<Image> imgGroupUrl,
         boolean sensivel
     ) {
         this.id = id;
@@ -269,12 +270,26 @@ public abstract class Grupo implements Serializable {
         this.sensivel = sensivel;
     }
 
-    public String getImgGroupUrl() {
+    public List<Image> getImgGroupUrl() {
         return imgGroupUrl;
     }
 
-    public void setImgGroupUrl(String imgGroupUrl) {
+    public void setImgGroupUrl(List<Image> imgGroupUrl) {
         this.imgGroupUrl = imgGroupUrl;
+    }
+
+    public void addImageGroup(Image imgGroupUrl) {
+        if(this.imgGroupUrl == null){
+            this.imgGroupUrl = new ArrayList<>();
+            System.out.println("[IMAGEM FONTE 1]");
+            this.imgGroupUrl.add(imgGroupUrl);
+        }else{
+            if( this.imgGroupUrl.stream().filter( e-> e.url.equals(imgGroupUrl.getUrl()) ).count() == 0){
+                this.imgGroupUrl.add(imgGroupUrl);
+                System.out.println("[IMAGEM FONTE 2]");
+
+            }
+        }
     }
 
     public List<String> getImg() {

@@ -1,10 +1,8 @@
 package xyz.zapgrupos.application.scrap;
 
-import org.jsoup.select.Elements;
-import org.jsoup.nodes.Element;
-import xyz.zapgrupos.application.ImageProcess.Image;
 import xyz.zapgrupos.application.ImageProcess.Invokator;
 import xyz.zapgrupos.model.Grupo;
+import xyz.zapgrupos.model.Image;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +12,8 @@ public class ScrapImage implements ScrapContract{
     public String scrap(Grupo grupo) {
         String[] urls = grupo.getImgUrlRegex().matcher(Commander.getBody().toString().toString()).results().map((e) -> e.group(1)).toArray(String[]::new);
         if(urls.length != 0){
-            grupo.setImgGroupUrl(urls[0].replaceAll("&amp;","&"));
+            Image img = new Image(urls[0].replaceAll("&amp;","&"));
+            grupo.addImageGroup(img);
             String imgProcessed = downloadImage(urls[0].replaceAll("&amp;","&"), grupo.getId());
             List<String> url = new ArrayList<>();
             url.add(imgProcessed);
