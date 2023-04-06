@@ -11,21 +11,21 @@ public class Invokator {
         Commander com = new Commander(grupo);
         com.run(
                 new ScrapTitle() ,
-                new ScrapImage(),
-                new VerifyIfActive<WhatsApp>()
-        );
-        Commander.response = null;
+                new VerifyIfActive<WhatsApp>(),
+                new ScrapImage()
+                );
+        com = null;
     }
 
     public void run(Telegram grupo){
         Commander com = new Commander(grupo);
         com.run(
                 new ScrapTitle() ,
-                new ScrapImage(),
                 new ScrapDescription(),
+                new ScrapImage(),
                 new VerifyIfActive<Telegram>()
         );
-        Commander.response = null;
+        com = null;
     }
 
 }

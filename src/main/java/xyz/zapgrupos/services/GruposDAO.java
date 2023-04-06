@@ -37,13 +37,11 @@ public class GruposDAO implements ServiceDAO<Grupo, String>{
     }
 
     private EntityManager getEntityManager(){
-        System.out.println("[TESTE]"+this.verifyEntityManager());
         if(this.verifyEntityManager()){
             return entityManager;
         }
 
         this.createEntityManager();
-        System.out.println("[TESTE]"+this.verifyEntityManager());
         return entityManager;
     }
 
@@ -69,7 +67,8 @@ public class GruposDAO implements ServiceDAO<Grupo, String>{
         this.beging();
         getEntityManager().merge(grupo);
         getEntityManager().flush();
-        getEntityManager().getTransaction().commit();
+        getEntityManager().clear();
+        //getEntityManager().getTransaction().commit();
         return grupo;
     }
 
@@ -84,6 +83,7 @@ public class GruposDAO implements ServiceDAO<Grupo, String>{
         } catch (Exception e) {
             e.printStackTrace();
         }
+        this.getEntityManager().close();
         return list;
     }
 
